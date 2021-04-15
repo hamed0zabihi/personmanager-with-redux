@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { NewPerson } from "./components/person";
+import { Persons } from "./components/persons";
+import { showpersons } from "./actions/showpesons";
+import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 function App() {
+  const dispatch = useDispatch();
+  const showperson = useSelector((state) => state.showpresons);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <React.Fragment>
+      <NewPerson />
+      <div className="text-center d-flex justify-content-center">
+        <button
+          type="button"
+          className={showperson ? "btn btn-primary " : "btn btn-danger"}
+          onClick={() => dispatch(showpersons())}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          نمایش
+        </button>
+      </div>
+      {showperson ? <Persons /> : null}
+    </React.Fragment>
   );
 }
 
